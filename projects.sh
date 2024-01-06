@@ -2,7 +2,12 @@
 
 source ~/.zshrc
 
-dir=$(hash -d | sed -E 's/.*=//' | fzf)
+stuff=$(hash -d | sed -E 's/.*=//')
+
+# directory specifics
+stuff+="\n$(find ~/project -mindepth 2 -maxdepth 2 -type d)"
+
+dir=$(echo $stuff | fzf)
 
 if [[ $dir != "" ]]; then
     if [ ! -z $TMUX ]; then
