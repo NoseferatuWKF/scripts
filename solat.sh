@@ -2,10 +2,9 @@
 
 set -e
 
-period=(Imsak Subuh Syuruk Zuhur Asar Maghrib Isya)
-time=($(curl -s https://www.waktusolat.my/kuala-lumpur | grep 'span' | perl -pe 's/\D*//' | perl -pe 's/(:\d*).*/\1/'))
+res=($(curl -s https://www.waktusolat.my/kuala-lumpur | grep '<meta name="description" content="Waktu Solat Kuala Lumpur dan Putrajaya 2024' | perl -pe "s/.+?(?=\d).+?(?=\D)\s//" | sed -E 's/".*//'))
 
-for i in ${!time[@]}
+for ((i=0; i<${#res[@]}; i+=3))
 do
-    echo "${period[$i]}: ${time[$i]}" 
+    echo "${res[$i]} ${res[$i + 1]} ${res[$i + 2]}"
 done
