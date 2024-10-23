@@ -2,6 +2,8 @@
 
 source ~/.zshrc
 
+set -e
+
 stuff=$(hash -d | sed -E 's/.*=//')
 
 # directory specifics

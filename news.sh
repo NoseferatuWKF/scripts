@@ -7,7 +7,6 @@ node ~/project/actually-useful/pnd/pump \
 | fzf -m \
 | tee --append ~/.news-histories
 
-
 # to discord
 # | sed 's/^/article: /' \
 # >> ~/project/automation/poor-man-automation/discord-pipe
