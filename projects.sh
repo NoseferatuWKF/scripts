@@ -1,20 +1,14 @@
-#!/bin/zsh
-
-source ~/.zshrc
+#!/bin/bash
 
 set -e
 
-stuff=$(hash -d | sed -E 's/.*=//')
+# NOTE: only support 2 level nested dir, eg; /projects/coding/c
+p=$(find ~/projects -mindepth 2 -maxdepth 2 -type d | fzf)
 
-# directory specifics
-stuff+="\n$(find ~/project -mindepth 2 -maxdepth 2 -type d)"
-
-dir=$(echo $stuff | fzf)
-
-if [[ $dir != "" ]]; then
+if [[ $p != "" ]]; then
     if [ ! -z $TMUX ]; then
-        tmux neww -c $dir "nvim -c \"lcd $dir\" $dir"
+        tmux neww -c $p "nvim -c \"lcd $p\" $p"
     else
-        vim -c "lcd $dir" $dir
+        vim -c "lcd $p" $p
     fi
 fi
